@@ -1,0 +1,15 @@
+{
+  "buyer": "0xFA2ED572F33cce6768C0BC1Ea839bb407bf7726b",
+  "buyerIdentity": "0xF9EbA3D3dE34E18440874685Db25B94df4b55841",
+  "chainId": 968,
+  "claimIssuer": "0xe9883606033611a93625b349598cB9107c0Eb934",
+  "claimSigner": "0x60267219c55ED0079ceEd9391C53d4a7E6c72E4b",
+  "claimTopicsRegistry": "0x1e21efE07aB0214119989EAF782462A722B87B26",
+  "compliance": "0xc3D514b77f253F328c54D94fddA3e7FD6024fBC9",
+  "identityRegistry": "0x6878acfb92EC4a4D2921889CCd04284BC357d3D1",
+  "identityRegistryStorage": "0xd890dc002fe2e283A4787050A37bF186ffC07c0B",
+  "issuer": "0xEab04d84569849f09bd997A6cEfD9ace66159ac9",
+  "issuerIdentity": "0xAde4C1d60996c2F16e3a04F5D840fA097bea0290",
+  "token": "0xE00EE1B6da55aA48f5DAaF5d486BCa534165FFe1",
+  "trustedIssuersRegistry": "0x9dEC7841151c4af7b437176da6d647171953042B"
+}
