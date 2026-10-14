@@ -62,3 +62,8 @@ export const rwaTokenAbi = [
   { type: "function", name: "paused", stateMutability: "view", inputs: [], outputs: [{ type: "bool" }] },
   { type: "function", name: "decimals", stateMutability: "view", inputs: [], outputs: [{ type: "uint8" }] },
 ] as const;
+
+/** Truva's Bohr-only test payment token (contracts/src/TestUSD.sol). */
+export const testUsdAbi = [
+  { type: "function", name: "faucet", stateMutability: "nonpayable", inputs: [], outputs: [] },
+] as const;

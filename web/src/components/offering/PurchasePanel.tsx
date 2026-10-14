@@ -2,10 +2,10 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useId, useMemo, useState } from "react";
-import { useReadContract, useSwitchChain } from "wagmi";
+import { useReadContract, useSwitchChain, useWriteContract } from "wagmi";
 import { botChain, networkLabel } from "@/config/chain";
 import type { Offering } from "@/config/offerings";
-import { identityRegistryAbi } from "@/lib/abi";
+import { identityRegistryAbi, testUsdAbi } from "@/lib/abi";
 import { contactHref, formatAmount, shortHex } from "@/lib/format";
 import { quoteFor } from "@/lib/quote";
 import { useWallet } from "@/lib/useWallet";
@@ -44,6 +44,26 @@ export function PurchasePanel({
   const [amount, setAmount] = useState("250");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const { writeContractAsync } = useWriteContract();
+  const [faucetMsg, setFaucetMsg] = useState<string | null>(null);
+
+  async function drawTestUsd() {
+    if (!offering.payment.address) return;
+    setFaucetMsg("Check your wallet…");
+    try {
+      await writeContractAsync({ address: offering.payment.address, abi: testUsdAbi, functionName: "faucet", chainId: botChain.id });
+      setFaucetMsg(`Sent. 10,000 test ${offering.payment.symbol} will arrive when the transaction confirms.`);
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : "";
+      setFaucetMsg(
+        /reject|denied/i.test(msg)
+          ? "You declined the transaction. Nothing was sent."
+          : /FaucetCooldown/.test(msg)
+            ? "This wallet already drew test tokens in the last 24 hours."
+            : "The faucet didn’t respond. Try again shortly.",
+      );
+    }
+  }
 
   const registry = offering.suite.identityRegistry;
   const read = useReadContract({
@@ -246,6 +266,16 @@ export function PurchasePanel({
         >
           {submitting ? "Re-checking eligibility…" : "Continue to checkout"}
         </button>
+        {offering.payment.address && !preview && (
+          <p className="small">
+            Need test {pay}?{" "}
+            <button type="button" className="link-plain" onClick={drawTestUsd}>
+              Get 10,000 test {pay}
+            </button>
+            . It has no value.
+            {faucetMsg && <span role="status"> {faucetMsg}</span>}
+          </p>
+        )}
       </>
     );
   }
