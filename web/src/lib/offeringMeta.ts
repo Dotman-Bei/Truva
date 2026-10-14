@@ -1,7 +1,6 @@
 import "server-only";
-import { promises as fs } from "node:fs";
-import path from "node:path";
 import { getOffering, offerings, type Offering, type OfferingStatus } from "@/config/offerings";
+import { kv, withLock } from "./kv";
 
 /**
  * Issuer-editable, non-critical offering metadata. Contract addresses, price rules and the
@@ -17,34 +16,22 @@ export type EditableMeta = {
 
 export type MetaChange = { offeringId: string; by: string; at: string; fields: string[] };
 
-const FILE = path.resolve(process.cwd(), process.env.TRUVA_META_STORE || ".data/offering-meta.json");
 type Store = { overrides: Record<string, EditableMeta>; log: MetaChange[] };
+const KEY = "offering-meta";
 
 async function read(): Promise<Store> {
-  try {
-    return JSON.parse(await fs.readFile(FILE, "utf8")) as Store;
-  } catch (e) {
-    if ((e as NodeJS.ErrnoException).code === "ENOENT") return { overrides: {}, log: [] };
-    throw e;
-  }
+  return (await kv.get<Store>(KEY)) ?? { overrides: {}, log: [] };
 }
 
-let queue: Promise<unknown> = Promise.resolve();
-
 export async function saveMeta(offeringId: string, meta: EditableMeta, by: string): Promise<MetaChange> {
-  const run = queue.then(async () => {
+  return withLock(KEY, async () => {
     const store = await read();
     store.overrides[offeringId] = { ...store.overrides[offeringId], ...meta };
     const change = { offeringId, by, at: new Date().toISOString(), fields: Object.keys(meta) };
     store.log.push(change);
-    await fs.mkdir(path.dirname(FILE), { recursive: true });
-    const tmp = `${FILE}.${process.pid}.tmp`;
-    await fs.writeFile(tmp, JSON.stringify(store, null, 1));
-    await fs.rename(tmp, FILE);
+    await kv.set(KEY, store);
     return change;
   });
-  queue = run.catch(() => undefined);
-  return run;
 }
 
 export async function metaLog(offeringId: string): Promise<MetaChange[]> {
