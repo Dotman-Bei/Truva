@@ -33,28 +33,29 @@ export type Offering = {
 
 const addr = (v: string | undefined) => (v && /^0x[0-9a-fA-F]{40}$/.test(v) ? (v as Address) : null);
 
-// The public PRWA demo suite on Bohr testnet (BOT Chain RWA address table, verified on-chain
-// 2026-10-14). BOT Chain describes PRWA as a capability demo: it carries no real-world rights.
-// Price and purchase limits are Truva test values (docs/FRONTEND.md §6), not issuer terms.
+// Truva's demo ERC-3643 suite on Bohr testnet: unmodified Tokeny T-REX 4.1.6 and ONCHAINID 2.2.1,
+// deployed by contracts/script/DeployDemoSuite.s.sol (addresses in contracts/deployments/). BOT Chain's
+// public PRWA suite is paused, so Truva runs its own suite to complete a real testnet checkout.
+// Price and purchase limits are test values (docs/FRONTEND.md §6), not issuer terms.
 export const offerings: Offering[] = [
   {
-    id: "prwa-demo",
-    name: "PRWA capability demo",
-    titleLines: ["PRWA", "capability demo"],
+    id: "truva-demo",
+    name: "Truva demo asset",
+    titleLines: ["Truva demo", "asset"],
     shortDescription:
-      "BOT Chain’s public demonstration token on Bohr testnet, used here to walk through the full checkout. It carries no claim on any real-world asset.",
+      "A demonstration ERC-3643 token on Bohr testnet, issued by Truva to run the full checkout end to end. It carries no claim on any real-world asset.",
     issuer: {
-      legalName: "BOT Chain public demo suite (token owner 0xE88E…24a9)",
-      contact: "https://www.botchain.ai/en/ecosystem-support",
+      legalName: "Truva testnet demo issuer (wallet 0xEab0…9ac9)",
+      contact: "https://github.com/Dotman-Bei/Truva",
     },
     category: "Capability demonstration",
     represents:
-      "One unit of BOT Chain’s Project Real World Asset (PRWA) demo token on Bohr testnet, used to test eligibility, payment and delivery.",
+      "One unit of the Truva Demo Asset (TDA) on Bohr testnet, used to test eligibility, payment and delivery against a real ERC-3643 suite.",
     doesNotRepresent:
-      "Ownership, custody, redemption rights, yield, or any interest in a real-world asset. BOT Chain states that PRWA is not evidence of real-world asset rights. It has no value.",
+      "Ownership, custody, redemption rights, yield, or any interest in a real-world asset. It is a test token with no value.",
     token: {
-      name: "Project Real World Asset",
-      symbol: "PRWA",
+      name: "Truva Demo Asset",
+      symbol: "TDA",
       decimals: 6,
       address: addr(process.env.NEXT_PUBLIC_RWA_TOKEN_ADDRESS),
     },
@@ -73,14 +74,14 @@ export const offerings: Offering[] = [
     window: { start: "2026-10-01", end: null },
     disclosures: [
       {
-        title: "BOT Chain RWA development manual",
-        href: "https://dev-docs.botchain.ai/docs/RWA/project-rwa-developer-docs/",
-        type: "Docs",
+        title: "Suite deployment record (addresses and roles)",
+        href: "https://github.com/Dotman-Bei/Truva/blob/main/contracts/deployments/bohr-demo-suite.json",
+        type: "JSON",
         date: "2026-10-14",
       },
       {
-        title: "PRWA suite address table",
-        href: "https://dev-docs.botchain.ai/docs/RWA/deployment-addresses/",
+        title: "ERC-3643 (T-REX) standard",
+        href: "https://www.erc3643.org/",
         type: "Docs",
         date: "2026-10-14",
       },

@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { primaryOffering } from "@/config/offerings";
 import { quoteFor } from "../quote";
 
-const o = primaryOffering; // 10.00 per token, 6-decimal payment asset, 6-decimal PRWA, 50–5,000 limits
+const o = primaryOffering; // 10.00 per token, 6-decimal payment asset, 6-decimal TDA, 50–5,000 limits
 
 describe("quoteFor", () => {
   it("converts a payment amount to exact integer units", () => {
