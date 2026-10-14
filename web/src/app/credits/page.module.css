@@ -1,0 +1,13 @@
+.page { padding-bottom: var(--section); }
+.list { display: grid; gap: 4px; }
+.list li {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-4) var(--space-5);
+  background: var(--surface);
+}
+.list li:nth-child(even) { background: var(--surface-2); }
+
+@media (min-width: 1024px) {
+  .list { padding-left: calc(var(--margin) + var(--axis)); }
+}
