@@ -1,0 +1,61 @@
+/* Phone: each row is a stacked band. Wide screens: a real table on tone bands, no rules. */
+.table { width: 100%; border-collapse: separate; border-spacing: 0; }
+.table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.table tbody { display: grid; gap: 4px; }
+.table tr {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: "state time" "ref ref" "amount amount" "links links";
+  gap: var(--space-2) var(--space-4);
+  padding: var(--space-4);
+  background: var(--surface);
+}
+.table tbody tr:nth-child(even) { background: var(--surface-2); }
+.table td { display: block; padding: 0; }
+.time { grid-area: time; color: var(--muted); font-size: var(--step-small); align-self: center; }
+.state { grid-area: state; }
+.table td:nth-child(2) { grid-area: ref; }
+.buyer { display: none !important; }
+.amount { grid-area: amount; font-weight: 500; }
+.links { grid-area: links; display: flex !important; flex-wrap: wrap; gap: var(--space-2); }
+
+.ref { font-weight: 500; text-decoration: underline; text-underline-offset: 0.22em; text-decoration-thickness: 0.07em; }
+.offering { display: block; color: var(--muted); font-size: var(--step-small); }
+.tx {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--space-4);
+  background: var(--bg);
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color var(--t-hover) ease, transform var(--t-press) var(--ease-out);
+}
+a.tx:active { transform: scale(0.98); }
+@media (hover: hover) and (pointer: fine) {
+  a.tx:hover { background: var(--ink); color: var(--bg); }
+}
+.none { display: inline-flex; align-items: center; min-height: 44px; color: var(--muted); font-size: var(--step-small); }
+
+@media (min-width: 1024px) {
+  .table { display: table; border-spacing: 0 4px; }
+  .table thead { position: static; width: auto; height: auto; overflow: visible; clip-path: none; display: table-header-group; }
+  .table tbody { display: table-row-group; }
+  .table tr { display: table-row; padding: 0; }
+  .table th {
+    padding: 0 var(--space-4) var(--space-2);
+    text-align: left;
+    font-weight: 500;
+    font-size: var(--step-small);
+    color: var(--muted);
+  }
+  .table td { display: table-cell !important; padding: var(--space-4); vertical-align: middle; background: inherit; }
+  .table thead tr { background: transparent; }
+  .table tbody tr { background: var(--surface); }
+  .time { font-size: var(--step-body); color: var(--ink); white-space: nowrap; }
+  .buyer { display: table-cell !important; }
+  .links { white-space: nowrap; }
+  .links > * + * { margin-left: var(--space-2); }
+  .tx { min-height: 36px; }
+  .none { min-height: 36px; margin-right: var(--space-3); }
+}
