@@ -335,7 +335,7 @@ content width (cropped by the bottom edge, never the top). 72px below, two parts
 
 Argument: here is what you can buy, and exactly what state each offering is in.
 
-- **Title on the axis**, `--step-head`: **Offerings**. Left of the axis, side note at
+- **Title on the axis**, `--step-display`: **Offerings**. (All app-page titles use the display size, set by the shared `PageHead`, with the side note in the left zone.) Left of the axis, side note at
   `--step-body`: "Truva lists only offerings an issuer has configured and verified, or demos labelled
   as demos. There is no open marketplace."
 - **Filter blocks:** **All · Active · Demo · Paused · Closed**, each with its count; filters with zero
