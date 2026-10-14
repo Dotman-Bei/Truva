@@ -1,0 +1,93 @@
+/* ---------- masthead: one scan and three flat tiles ---------- */
+.masthead {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  height: 22svh;
+  min-height: 140px;
+}
+.scan { position: relative; overflow: hidden; background: var(--surface); }
+.img { object-fit: cover; }
+.tileInk { background: var(--ink); }
+.tileField { background: var(--field); }
+.tileStone { display: none; background: var(--surface-2); }
+
+@media (min-width: 768px) {
+  .masthead { grid-template-columns: 3fr 1fr 1fr 1fr; height: 24svh; }
+  .tileStone { display: block; }
+}
+
+/* ---------- title on the axis ---------- */
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding-top: var(--space-7);
+  padding-bottom: var(--space-8);
+}
+.standfirst { max-width: 34ch; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+
+@media (min-width: 768px) {
+  .head {
+    display: grid;
+    grid-template-columns: var(--axis) minmax(0, 1fr);
+    grid-template-areas: "stand title" "stand tags";
+    align-items: start;
+    gap: var(--space-5) 0;
+    padding-top: var(--space-7);
+    padding-bottom: var(--space-7);
+  }
+  .title { grid-area: title; }
+  .standfirst { grid-area: stand; padding-right: var(--gutter); font-size: var(--step-lead); line-height: 1.4; }
+  .tags { grid-area: tags; }
+}
+
+/* ---------- body: purchase panel in the left zone, sections on the axis ---------- */
+.body { padding-bottom: var(--section); }
+.sections { display: flex; flex-direction: column; gap: var(--space-9); }
+.sections h2 { margin-bottom: var(--space-6); }
+
+@media (min-width: 1024px) {
+  .body {
+    display: grid;
+    grid-template-columns: var(--axis) minmax(0, 1fr);
+    align-items: start;
+    padding-bottom: var(--section);
+  }
+  .aside { padding-right: var(--gutter); height: 100%; }
+  .sections { gap: var(--space-10); }
+}
+
+.pair { display: grid; gap: var(--space-4); }
+.pair > div { padding: var(--space-5); }
+.pair p { max-width: 40ch; }
+.not { background: var(--surface); }
+.sub { font-family: var(--font-text); font-size: var(--step-body); font-weight: 500; margin-bottom: var(--space-2); letter-spacing: 0.01em; }
+@media (min-width: 768px) {
+  .pair { grid-template-columns: 1fr 1fr; gap: var(--gutter); }
+}
+
+.facts { display: grid; gap: 4px; }
+.facts > div, .contracts > li {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-4) var(--space-5);
+  background: var(--surface);
+}
+.facts > div:nth-child(even), .contracts > li:nth-child(even) { background: var(--surface-2); }
+.facts dt, .contractLabel { color: var(--muted); }
+.facts dd { font-weight: 500; max-width: 60ch; }
+.contracts { display: grid; gap: 4px; }
+.contracts li { align-items: center; justify-items: start; }
+
+@media (min-width: 768px) {
+  .facts > div, .contracts > li { grid-template-columns: 14rem minmax(0, 1fr); gap: var(--gutter); }
+}
+
+.table { width: 100%; border-collapse: separate; border-spacing: 0 4px; }
+.table th, .table td { padding: var(--space-4) var(--space-5); text-align: left; vertical-align: top; }
+.table th { width: 40%; font-weight: 400; color: var(--muted); background: var(--surface); }
+.table td { font-weight: 500; background: var(--surface); }
+.table tr:nth-child(even) th, .table tr:nth-child(even) td { background: var(--surface-2); }
+
+.lede { max-width: 52ch; margin-bottom: var(--space-5); }
