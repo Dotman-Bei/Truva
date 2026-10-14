@@ -10,9 +10,14 @@ import {TestUSD} from "../src/TestUSD.sol";
 contract DeployTestUSD is Script {
     function run() external returns (TestUSD token) {
         require(block.chainid == 968, "TestUSD is for Bohr testnet only");
-        uint256 key = vm.envOr("PRIVATE_KEY", uint256(0));
-        if (key != 0) vm.startBroadcast(key);
-        else vm.startBroadcast();
+        // Accept the key with or without a 0x prefix; refuse to fall back silently to a default sender.
+        string memory raw = vm.envOr("PRIVATE_KEY", string(""));
+        if (bytes(raw).length != 0) {
+            bool prefixed = bytes(raw).length > 1 && bytes(raw)[0] == "0" && bytes(raw)[1] == "x";
+            vm.startBroadcast(vm.parseUint(prefixed ? raw : string.concat("0x", raw)));
+        } else {
+            vm.startBroadcast();
+        }
         token = new TestUSD();
         vm.stopBroadcast();
         console.log("TestUSD deployed at", address(token));
