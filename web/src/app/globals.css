@@ -1,4 +1,4 @@
-/* Truva tokens — docs/FRONTEND.md §2. Components reference these only. */
+/* Truva tokens, from docs/FRONTEND.md §2. Components reference these only. */
 :root {
   --bg: #f1f1ec;
   --surface: #e4e4dc;
@@ -174,3 +174,8 @@ p { text-wrap: pretty; }
 }
 @keyframes line-up { to { transform: none; } }
 @keyframes rise { to { opacity: 1; transform: none; } }
+
+/* Pages with the purchase bar keep room for it at the bottom edge on phones. */
+@media (max-width: 1023px) {
+  body:has(#eligibility) { padding-bottom: 72px; }
+}
