@@ -33,25 +33,29 @@ export type Offering = {
 
 const addr = (v: string | undefined) => (v && /^0x[0-9a-fA-F]{40}$/.test(v) ? (v as Address) : null);
 
-// SAMPLE demo-config content (docs/FRONTEND.md §6). Confirm every value against the
-// selected Bohr testnet suite before testers see it.
+// The public PRWA demo suite on Bohr testnet (BOT Chain RWA address table, verified on-chain
+// 2026-10-14). BOT Chain describes PRWA as a capability demo: it carries no real-world rights.
+// Price and purchase limits are Truva test values (docs/FRONTEND.md §6), not issuer terms.
 export const offerings: Offering[] = [
   {
-    id: "demo-invoice-pool-a",
-    name: "Demo invoice pool A",
-    titleLines: ["Demo invoice", "pool A"],
+    id: "prwa-demo",
+    name: "PRWA capability demo",
+    titleLines: ["PRWA", "capability demo"],
     shortDescription:
-      "A demonstration token on Bohr testnet that walks through the full checkout. It carries no claim on any real-world asset.",
-    issuer: { legalName: "Truva demo issuer (test configuration)", contact: "issuer-demo@truva.example" },
-    category: "Receivables (demonstration)",
+      "BOT Chain’s public demonstration token on Bohr testnet, used here to walk through the full checkout. It carries no claim on any real-world asset.",
+    issuer: {
+      legalName: "BOT Chain public demo suite (token owner 0xE88E…24a9)",
+      contact: "https://www.botchain.ai/en/ecosystem-support",
+    },
+    category: "Capability demonstration",
     represents:
-      "One unit of a demonstration offering, used to test checkout and delivery on Bohr testnet.",
+      "One unit of BOT Chain’s Project Real World Asset (PRWA) demo token on Bohr testnet, used to test eligibility, payment and delivery.",
     doesNotRepresent:
-      "Ownership, custody, redemption rights, yield, or any interest in a real-world asset. It has no value.",
+      "Ownership, custody, redemption rights, yield, or any interest in a real-world asset. BOT Chain states that PRWA is not evidence of real-world asset rights. It has no value.",
     token: {
-      name: "Demo Invoice Pool A",
-      symbol: "tDIPA",
-      decimals: 18,
+      name: "Project Real World Asset",
+      symbol: "PRWA",
+      decimals: 6,
       address: addr(process.env.NEXT_PUBLIC_RWA_TOKEN_ADDRESS),
     },
     suite: {
@@ -67,9 +71,22 @@ export const offerings: Offering[] = [
     maxPurchase: "5000.00",
     truvaFee: null,
     window: { start: "2026-10-01", end: null },
-    disclosures: [],
+    disclosures: [
+      {
+        title: "BOT Chain RWA development manual",
+        href: "https://dev-docs.botchain.ai/docs/RWA/project-rwa-developer-docs/",
+        type: "Docs",
+        date: "2026-10-14",
+      },
+      {
+        title: "PRWA suite address table",
+        href: "https://dev-docs.botchain.ai/docs/RWA/deployment-addresses/",
+        type: "Docs",
+        date: "2026-10-14",
+      },
+    ],
     fulfilment:
-      "Delivered by transfer from the issuer’s inventory wallet after payment confirms. Both wallets must pass the suite’s compliance rules.",
+      "Delivered by transfer from the issuer’s inventory wallet after payment confirms. Both wallets must pass the suite’s compliance rules, and the token must not be paused.",
     status: "Demo",
     lastVerified: null,
   },

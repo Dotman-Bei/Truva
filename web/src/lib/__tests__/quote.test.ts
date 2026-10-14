@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { primaryOffering } from "@/config/offerings";
 import { quoteFor } from "../quote";
 
-const o = primaryOffering; // 10.00 per token, 6-decimal payment asset, 18-decimal token, 50–5,000 limits
+const o = primaryOffering; // 10.00 per token, 6-decimal payment asset, 6-decimal PRWA, 50–5,000 limits
 
 describe("quoteFor", () => {
   it("converts a payment amount to exact integer units", () => {
@@ -10,13 +10,13 @@ describe("quoteFor", () => {
     expect(q.ok).toBe(true);
     if (!q.ok) return;
     expect(q.payUnits).toBe(250_000_000n);
-    expect(q.tokenUnits).toBe(25n * 10n ** 18n);
+    expect(q.tokenUnits).toBe(25_000_000n);
     expect(q.receive).toBe("25");
   });
 
   it("keeps fractional amounts exact, with no float rounding", () => {
     const q = quoteFor(o, "50.10");
-    expect(q.ok && q.tokenUnits).toBe(5_010_000_000_000_000_000n);
+    expect(q.ok && q.tokenUnits).toBe(5_010_000n);
   });
 
   it("rejects amounts under the minimum and over the maximum", () => {
