@@ -20,13 +20,13 @@ npm run build
 | Variable | Status |
 | --- | --- |
 | `NEXT_PUBLIC_BOT_CHAIN_ID`, `NEXT_PUBLIC_BOT_RPC_URL`, `NEXT_PUBLIC_BOT_EXPLORER_URL` | Bohr testnet: 968, `https://rpc.bohr.life`, `https://scan.bohr.life`. Checked on 2026-10-14 against the BOT Chain quick guide and an `eth_chainId` call. |
-| `NEXT_PUBLIC_RWA_TOKEN_ADDRESS`, `…_IDENTITY_REGISTRY_ADDRESS`, `…_COMPLIANCE_ADDRESS` | **Not set.** Take them from the BOT Chain RWA manual for the chosen testnet suite. |
-| `NEXT_PUBLIC_PAYMENT_TOKEN_ADDRESS` | **Not set.** The verified Bohr testnet payment token. |
-| `NEXT_PUBLIC_ISSUER_TREASURY_ADDRESS`, `NEXT_PUBLIC_ISSUER_INVENTORY_ADDRESS` | **Not set.** Issuer wallets that receive payment and send delivery. |
+| `NEXT_PUBLIC_RWA_TOKEN_ADDRESS`, `…_IDENTITY_REGISTRY_ADDRESS`, `…_COMPLIANCE_ADDRESS` | Set to BOT Chain's PRWA demo suite and verified on-chain (see the root README). |
+| `NEXT_PUBLIC_PAYMENT_TOKEN_ADDRESS` | **Not set.** Deploy `contracts/TestUSD` and put its address here. |
+| `NEXT_PUBLIC_ISSUER_TREASURY_ADDRESS`, `NEXT_PUBLIC_ISSUER_INVENTORY_ADDRESS` | **Not set.** The inventory wallet must hold PRWA and be registered by BOT Chain's agents. |
 | `TRUVA_UI_PREVIEW` | `1` enables labelled interface previews (see FRONTEND.md §7). Leave empty for testers. |
 
-Until every address is set and has deployed code, the offering shows **Unable to verify** and checkout stays
-closed. That is deliberate: Truva fails closed.
+Until every address is set and has deployed code, and the token is unpaused, the offering shows **Unable to
+verify** and checkout stays closed. That is deliberate: Truva fails closed.
 
 ## How a checkout moves
 

@@ -574,8 +574,8 @@ The skill's house rules apply on every page, app screens included. Specific to T
 
 These appear in the designs at full density and come from demo config, not from evidence:
 
-- Offering name "Demo invoice pool A", symbol, price 10.00 per token, minimum 50.00, maximum 5,000.00,
-  short description, represents / does-not-represent text, issuer name and contact.
+- The offering now points at BOT Chain's real PRWA demo token (6 decimals). Still Truva test values: price
+  10.00 tUSD per PRWA, minimum 50.00, maximum 5,000.00.
 - Payment asset symbol (shown as `{paymentSymbol}`): must be the verified Bohr testnet payment token.
 - The intent reference format `TRV-XXXX-XXXX` and the sample hashes in the Home how-it-works fragment
   (they illustrate the interface and are labelled as an example in the markup's `aria-label`).
