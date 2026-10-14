@@ -4,6 +4,12 @@ An RWA checkout and settlement layer for BOT Chain: an eligible buyer pays for a
 and Truva verifies the payment-to-delivery lifecycle on-chain. It integrates BOT Chain's existing ERC-3643
 (T-REX) suite and never bypasses its identity or compliance rules.
 
+**Live on Bohr testnet: <https://truva-smoky.vercel.app>**: a real checkout settled through the live site,
+[`TRV-VNYT-JWSK`](https://truva-smoky.vercel.app/checkout/TRV-VNYT-JWSK) (payment
+[`0x378b736b…bd312d`](https://scan.bohr.life/tx/0x378b736b2c40c357315cb7a3912c1dd64c557d9d261bc6fc38a2e693b5bd312d),
+delivery [`0x1968c5de…21eebfe`](https://scan.bohr.life/tx/0x1968c5de1a45fdf70b03c35a942ec0ef46f18711bbaa3fdb4a3abf07b21eebfe)).
+Hosted on Vercel with Upstash Redis; Next.js 15.5.27.
+
 | Folder | What it is |
 | --- | --- |
 | [`web/`](web/) | Next.js app: seven pages, the intent API and on-chain verification. Setup in [`web/README.md`](web/README.md). |
