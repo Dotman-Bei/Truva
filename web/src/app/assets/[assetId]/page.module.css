@@ -54,7 +54,7 @@
     align-items: start;
     padding-bottom: var(--section);
   }
-  .aside { padding-right: var(--gutter); height: 100%; }
+  .aside { padding-right: var(--gutter); align-self: stretch; }
   .sections { gap: var(--space-10); }
 }
 
