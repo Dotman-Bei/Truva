@@ -16,6 +16,10 @@ export type Offering = {
   suite: { identityRegistry: Address | null; compliance: Address | null };
   network: string;
   payment: { symbol: string; decimals: number; address: Address | null };
+  /** Issuer wallet that receives payment. */
+  treasury: Address | null;
+  /** Issuer wallet that delivers tokens to the buyer. */
+  inventory: Address | null;
   pricePerToken: string;
   minPurchase: string;
   maxPurchase: string;
@@ -56,6 +60,8 @@ export const offerings: Offering[] = [
     },
     network: "Bohr testnet",
     payment: { symbol: "tUSD", decimals: 6, address: addr(process.env.NEXT_PUBLIC_PAYMENT_TOKEN_ADDRESS) },
+    treasury: addr(process.env.NEXT_PUBLIC_ISSUER_TREASURY_ADDRESS),
+    inventory: addr(process.env.NEXT_PUBLIC_ISSUER_INVENTORY_ADDRESS),
     pricePerToken: "10.00",
     minPurchase: "50.00",
     maxPurchase: "5000.00",
