@@ -1,17 +1,14 @@
 import "server-only";
-import { createPublicClient, http, type Address } from "viem";
-import { botChain, chainConfigured, networkLabel } from "@/config/chain";
+import type { Address } from "viem";
+import { botChain, networkLabel } from "@/config/chain";
 import type { Offering } from "@/config/offerings";
+import { publicClient as client } from "./chainServer";
 
 export type Verification = {
   ok: boolean;
   checkedAt: string;
   problems: string[];
 };
-
-const client = chainConfigured
-  ? createPublicClient({ chain: botChain, transport: http(undefined, { timeout: 8000 }) })
-  : null;
 
 /**
  * Checks an offering's configuration against the chain: the network is set, and every
@@ -31,6 +28,8 @@ export async function verifyOffering(offering: Offering): Promise<Verification> 
   ];
 
   const problems: string[] = [];
+  if (!offering.treasury) problems.push("Issuer treasury wallet is not set.");
+  if (!offering.inventory) problems.push("Issuer inventory wallet is not set.");
   try {
     const chainId = await client.getChainId();
     if (chainId !== botChain.id) problems.push(`The RPC reports chain ${chainId}, not ${botChain.id}.`);
