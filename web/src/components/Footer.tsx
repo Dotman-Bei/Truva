@@ -1,9 +1,6 @@
 import Link from "next/link";
 import { explorerHome, networkLabel } from "@/config/chain";
-import credits from "../../public/archive/credits.json";
 import styles from "./Footer.module.css";
-
-const shortTitle = (t: string) => t.replace(/\s*\(\d+\)$/, "");
 
 export function Footer() {
   return (
@@ -53,24 +50,10 @@ export function Footer() {
             <ul>
               <li><Link className="link" href="/#not-a-deed">What a token is not</Link></li>
               <li><Link className="link" href="/#lifecycle">How settlement works</Link></li>
+              <li><Link className="link" href="/credits">Image credits</Link></li>
             </ul>
           </div>
         </div>
-      </div>
-
-      <div className={styles.credits}>
-        <h2 className={styles.colHead}>Archive pictures</h2>
-        <ul>
-          {credits.map((c) => (
-            <li key={c.ref}>
-              <a className="link" href={c.page} target="_blank" rel="noreferrer">
-                {shortTitle(c.title)}
-              </a>
-              , {c.creator ? `${c.creator}, ` : ""}
-              {c.license}
-            </li>
-          ))}
-        </ul>
       </div>
 
       <div className={`${styles.legal} small`}>
