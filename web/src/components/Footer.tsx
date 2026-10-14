@@ -55,21 +55,22 @@ export function Footer() {
               <li><Link className="link" href="/#lifecycle">How settlement works</Link></li>
             </ul>
           </div>
-          <div className={styles.credits}>
-            <h2 className={styles.colHead}>Archive pictures</h2>
-            <ul>
-              {credits.map((c) => (
-                <li key={c.ref}>
-                  <a className="link" href={c.page} target="_blank" rel="noreferrer">
-                    {shortTitle(c.title)}
-                  </a>
-                  , {c.creator ? `${c.creator}, ` : ""}
-                  {c.license}
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
+      </div>
+
+      <div className={styles.credits}>
+        <h2 className={styles.colHead}>Archive pictures</h2>
+        <ul>
+          {credits.map((c) => (
+            <li key={c.ref}>
+              <a className="link" href={c.page} target="_blank" rel="noreferrer">
+                {shortTitle(c.title)}
+              </a>
+              , {c.creator ? `${c.creator}, ` : ""}
+              {c.license}
+            </li>
+          ))}
+        </ul>
       </div>
 
       <div className={`${styles.legal} small`}>
