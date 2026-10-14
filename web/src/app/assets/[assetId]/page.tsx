@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { explorerAddress, networkLabel } from "@/config/chain";
-import { getOffering, offerings } from "@/config/offerings";
+import { offerings } from "@/config/offerings";
+import { liveOffering } from "@/lib/offeringMeta";
 import { formatAmount } from "@/lib/format";
 import { previewEnabled } from "@/lib/preview";
 import { verifyOffering } from "@/lib/verify";
@@ -21,7 +22,7 @@ export function generateStaticParams() {
 type Props = { params: Promise<{ assetId: string }>; searchParams: Promise<{ preview?: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const o = getOffering((await params).assetId);
+  const o = await liveOffering((await params).assetId);
   return { title: o ? o.name : "Offering" };
 }
 
@@ -29,7 +30,7 @@ const PREVIEWS: PanelPreview[] = ["eligible", "not-eligible", "unable", "checkin
 
 export default async function OfferingPage({ params, searchParams }: Props) {
   const { assetId } = await params;
-  const offering = getOffering(assetId);
+  const offering = await liveOffering(assetId);
   if (!offering) notFound();
 
   const { preview: previewParam } = await searchParams;
@@ -82,11 +83,13 @@ export default async function OfferingPage({ params, searchParams }: Props) {
               {offering.titleLines[0]}
             </span>
           </span>
-          <span className="line">
-            <span data-line style={{ "--i": 1 } as React.CSSProperties}>
-              {offering.titleLines[1]}
+          {offering.titleLines[1] && (
+            <span className="line">
+              <span data-line style={{ "--i": 1 } as React.CSSProperties}>
+                {offering.titleLines[1]}
+              </span>
             </span>
-          </span>
+          )}
         </h1>
         <p className={styles.standfirst} data-rise>
           {offering.shortDescription}

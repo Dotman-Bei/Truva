@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { networkLabel } from "@/config/chain";
-import { offerings } from "@/config/offerings";
+import { liveOfferings } from "@/lib/offeringMeta";
 import { verifyOffering } from "@/lib/verify";
 import { PageHead } from "@/components/PageHead";
 import { OfferingsBoard, type OfferingRow } from "@/components/offerings/OfferingsBoard";
@@ -12,7 +12,7 @@ export const revalidate = 60;
 
 export default async function OfferingsPage() {
   const rows: OfferingRow[] = await Promise.all(
-    offerings.map(async (o) => {
+    (await liveOfferings()).map(async (o) => {
       const v = await verifyOffering(o);
       return {
         id: o.id,

@@ -5,6 +5,7 @@ import { randomBytes } from "node:crypto";
 import type { Address, Hash } from "viem";
 import { isTestnet, networkLabel } from "@/config/chain";
 import { getOffering, type Offering } from "@/config/offerings";
+import { liveOffering } from "./offeringMeta";
 import { checkTransfer, isEligible } from "./chainServer";
 import type { Intent } from "./intentTypes";
 import { quoteFor } from "./quote";
@@ -83,7 +84,7 @@ export async function getIntent(id: string): Promise<Intent | null> {
 // ---------- create ----------
 
 export async function createIntent(input: { offeringId: string; buyer: Address; amount: string }): Promise<Intent> {
-  const offering = getOffering(input.offeringId);
+  const offering = await liveOffering(input.offeringId);
   if (!offering) throw new CheckoutError("That offering doesn’t exist.", 404);
   if (offering.status !== "Active" && offering.status !== "Demo") {
     throw new CheckoutError("Checkout is closed for this offering.", 409);

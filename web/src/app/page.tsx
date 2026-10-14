@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { networkLabel } from "@/config/chain";
-import { primaryOffering as offering } from "@/config/offerings";
+import { liveOfferings } from "@/lib/offeringMeta";
 import { getActivity, inGroup, type Group } from "@/lib/activity";
 import { formatAmount } from "@/lib/format";
 import { STATES } from "@/lib/states";
@@ -10,11 +10,12 @@ import { LifecycleBoard } from "@/components/home/LifecycleBoard";
 import { ArchiveClip } from "@/components/home/ArchiveClip";
 import styles from "./page.module.css";
 
-const offeringHref = `/assets/${offering.id}`;
 
 export const revalidate = 30;
 
 export default async function Home() {
+  const offering = (await liveOfferings())[0];
+  const offeringHref = `/assets/${offering.id}`;
   const all = await getActivity();
   const activity = all.slice(0, 6);
   const pay = offering.payment.symbol;
