@@ -6,7 +6,7 @@ import { PageHead } from "@/components/PageHead";
 import { OfferingsBoard, type OfferingRow } from "@/components/offerings/OfferingsBoard";
 import styles from "./page.module.css";
 
-export const metadata: Metadata = { title: "Offerings — Truva" };
+export const metadata: Metadata = { title: "Offerings" };
 // Configuration is re-checked against the chain at most once a minute.
 export const revalidate = 60;
 

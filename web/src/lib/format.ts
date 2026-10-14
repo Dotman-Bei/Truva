@@ -5,6 +5,6 @@ export function shortHex(value: string, head = 6, tail = 4): string {
 
 export function formatAmount(value: string | number, fractionDigits = 2): string {
   const n = typeof value === "number" ? value : Number(value);
-  if (!Number.isFinite(n)) return "—";
+  if (!Number.isFinite(n)) return "Unavailable";
   return n.toLocaleString("en-GB", { minimumFractionDigits: fractionDigits, maximumFractionDigits: fractionDigits });
 }

@@ -22,7 +22,7 @@ const jost = Jost({
 });
 
 export const metadata: Metadata = {
-  title: "Truva — checkout for tokenized real-world assets",
+  title: { default: "Truva: checkout for tokenized real-world assets", template: "%s | Truva" },
   description:
     "Check eligibility, pay for an approved tokenized asset, and verify payment and delivery on BOT Chain.",
 };
