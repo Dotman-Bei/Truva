@@ -1,0 +1,24 @@
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding-top: var(--space-8);
+  padding-bottom: var(--space-7);
+}
+.note { max-width: 34ch; }
+.extra { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+
+@media (min-width: 768px) {
+  .head {
+    display: grid;
+    grid-template-columns: var(--axis) minmax(0, 1fr);
+    grid-template-areas: "note title" "note extra";
+    align-items: end;
+    gap: var(--space-5) 0;
+    padding-top: var(--space-9);
+    padding-bottom: var(--space-8);
+  }
+  .title { grid-area: title; }
+  .note { grid-area: note; align-self: end; padding-right: var(--gutter); padding-bottom: 0.6em; }
+  .extra { grid-area: extra; }
+}
