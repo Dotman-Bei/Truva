@@ -1,0 +1,58 @@
+.page { padding-bottom: var(--section); }
+
+.pending {
+  padding: var(--space-7) var(--margin);
+  background: var(--st-progress);
+  color: var(--st-progress-ink);
+}
+.pending h2 { margin-bottom: var(--space-5); }
+.pendingList { display: grid; gap: 4px; }
+.pendingList li {
+  display: grid;
+  gap: var(--space-2);
+  justify-items: start;
+  padding: var(--space-4);
+  background: rgb(255 255 255 / 0.35);
+}
+
+.holdings { display: grid; gap: var(--space-7); padding-top: var(--space-8); }
+.holding { display: grid; gap: var(--space-5); }
+.balance {
+  font-family: var(--font-display);
+  font-size: var(--step-display);
+  line-height: 0.92;
+  letter-spacing: -0.045em;
+}
+.figure { display: grid; gap: var(--space-2); }
+.symbol { font-size: var(--step-lead); font-weight: 500; }
+.unread { font-family: var(--font-display); font-size: var(--step-head); line-height: 1; letter-spacing: -0.025em; color: var(--muted); }
+
+.disconnected { display: grid; gap: var(--space-6); }
+.disconnectedText { max-width: 34ch; }
+.certificate { position: relative; aspect-ratio: 1600 / 1275; overflow: hidden; background: var(--surface); }
+.img { object-fit: cover; }
+@media (prefers-reduced-motion: no-preference) {
+  .certificate .img { animation: drift 18s var(--ease-in-out) infinite alternate; transform-origin: 20% 70%; }
+}
+@keyframes drift { from { transform: scale(1); } to { transform: scale(1.06); } }
+.meta { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-3); max-width: 52ch; }
+.tokenName { font-family: var(--font-text); font-size: var(--step-lead); font-weight: 500; letter-spacing: 0.01em; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.demo { padding: var(--space-3) var(--space-4); background: var(--surface); }
+
+.recent { padding-top: var(--space-9); }
+.recent h2 { margin-bottom: var(--space-6); }
+.note { padding: var(--space-5); background: var(--surface); max-width: 60ch; }
+
+@media (min-width: 768px) {
+  .pendingList li { grid-template-columns: 10rem 12rem minmax(0, 1fr) auto; align-items: center; }
+}
+
+@media (min-width: 1024px) {
+  .pending { display: grid; grid-template-columns: var(--axis) minmax(0, 1fr); align-items: start; }
+  .holding { grid-template-columns: var(--axis) minmax(0, 1fr); gap: 0; align-items: end; }
+  .holding .figure { grid-column: 2; grid-row: 1; }
+  .disconnected { grid-template-columns: var(--axis) minmax(0, 1fr); gap: 0; align-items: end; }
+  .disconnectedText { padding-right: var(--gutter); }
+  .holding .meta { grid-column: 1; grid-row: 1; padding-right: var(--gutter); }
+}
