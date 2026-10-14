@@ -175,7 +175,9 @@ Shortlist (all checked as available, commercial-use licences):
 - *Administrative Bill of Exchange issued at Quebec, 1751*, CC0 (hero mosaic)
 - *Bill of Exchange, Adams & Co, Melbourne, 1853*, Museums Victoria, CC BY 4.0 (hero mosaic)
 - *Stock certificate for $50 issued to A.J. Rogers*, UT Arlington, CC BY 4.0 ("Not a deed" tile)
-- *The King at home* (counting-house, John Leech, 1859), public domain (empty-state illustration on Activity)
+- *The Industrious ’Prentice, entrusted by his Master* (after Hogarth, 1747), Wellcome Collection, CC BY 4.0 (Activity empty state)
+- *Aanvoer van Surinaams fruit* (Polygoon newsreel, 1947), public domain (the hero’s moving tile, looped between its black leader frames)
+- The 1900 stock certificate also appears on the disconnected Portfolio screen
 
 Treatment: all scans greyscale (`grayscale(1) contrast(1.05)`), cropped tight, square corners. The
 product's own pictures are its interface: real-size fragments built in HTML (eligibility result,
@@ -460,7 +462,7 @@ Argument: everything that happened is public, and every row points at the chain.
   (truncated), amount, status block, **Payment** and **Delivery** explorer links. Rows link to their
   checkout page. Stale-index rows show a `--st-closed` note "Index behind chain — reconciling".
 - Pagination: **Older** / **Newer** text buttons, 25 rows per page.
-- Empty state: the John Leech counting-house engraving, large, greyscale, with "No checkouts on Bohr
+- Empty state: the Hogarth counting-house engraving, large, greyscale, with "No checkouts on Bohr
   testnet yet. The first one will appear here with both of its transaction links."
 - Phone: each row becomes a stacked band: status block and time on top, reference and amount, then the
   two links as 44px buttons.
@@ -578,3 +580,19 @@ These appear in the designs at full density and come from demo config, not from 
 - The intent reference format `TRV-XXXX-XXXX` and the sample hashes in the Home how-it-works fragment
   (they illustrate the interface and are labelled as an example in the markup's `aria-label`).
 - All archival scans are credited third-party images of historical documents, not Truva's assets.
+
+---
+
+## 7. Build notes (what the implementation added or changed)
+
+- **Interface previews.** With `TRUVA_UI_PREVIEW=1`, labelled example states render for design review and
+  demo recordings: `/checkout/preview-<state>` (awaiting-payment, payment-submitted, delivery-pending,
+  settled, payment-failed, delivery-failed, expired), `/assets/<id>?preview=eligible|not-eligible|unable|checking`,
+  `/activity?preview=1`, `/portfolio?preview=1`, `/dashboard?preview=agent`. Every preview carries a full-width
+  banner, disables every write, and never touches the intent store. Never set the flag for testers.
+- **Page titles** use `--step-display` via the shared `PageHead` (title on the axis, note in the left zone).
+- **Disconnected Portfolio** shows the 1900 stock certificate beside the line “records, not certificates”.
+- **Dashboard role** is read from the ERC-3643 token (`isAgent` or `owner`). Metadata edits are signed messages,
+  re-verified on the server against the same role; contract addresses and price rules are never editable.
+- **Inspector waivers.** App pages are inspected with `--allow few-pictures,no-footage`; every other rule applies.
+  Home is inspected with no waivers.
