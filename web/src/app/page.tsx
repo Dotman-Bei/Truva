@@ -2,9 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { networkLabel } from "@/config/chain";
 import { primaryOffering as offering } from "@/config/offerings";
-import { getRecentActivity } from "@/lib/activity";
+import { getActivity, inGroup, type Group } from "@/lib/activity";
 import { formatAmount } from "@/lib/format";
-import { STATES, type Tone } from "@/lib/states";
+import { STATES } from "@/lib/states";
 import { StatusBlock } from "@/components/StatusBlock";
 import { LifecycleBoard } from "@/components/home/LifecycleBoard";
 import { ArchiveClip } from "@/components/home/ArchiveClip";
@@ -12,8 +12,11 @@ import styles from "./page.module.css";
 
 const offeringHref = `/assets/${offering.id}`;
 
+export const revalidate = 30;
+
 export default async function Home() {
-  const activity = await getRecentActivity(6);
+  const all = await getActivity();
+  const activity = all.slice(0, 6);
   const pay = offering.payment.symbol;
   const tok = offering.token.symbol;
 
@@ -36,7 +39,7 @@ export default async function Home() {
           <div className={`${styles.cell} ${styles.c}`}>
             <Image
               src="/archive/administrative-bill-of-exchange-issued-at-quebec-paper.webp"
-              alt="A handwritten bill of exchange issued at Quebec in 1759"
+              alt="A handwritten bill of exchange issued at Quebec in the 1750s"
               fill
               priority
               sizes="17vw"
@@ -265,19 +268,19 @@ export default async function Home() {
           <ul className={styles.filters} aria-label="Filter by state">
             {(
               [
-                ["All", "", () => true],
-                ["Settled", "settled", (t: Tone) => t === "done"],
-                ["Pending", "pending", (t: Tone) => t === "progress" || t === "neutral"],
-                ["Failed", "failed", (t: Tone) => t === "fail"],
-              ] as const
-            ).map(([label, q, match], i) => (
+                ["All", null],
+                ["Settled", "settled"],
+                ["Pending", "pending"],
+                ["Failed", "failed"],
+              ] as [string, Group | null][]
+            ).map(([label, q], i) => (
               <li key={label}>
                 <Link
                   href={q ? `/activity?state=${q}` : "/activity"}
                   className={`${styles.filter} ${i === 0 ? styles.filterActive : ""}`}
                 >
                   <span>{label}</span>
-                  <span className="small nums">{activity.filter((r) => match(STATES[r.state].tone)).length}</span>
+                  <span className="small nums">{all.filter((r) => inGroup(r.state, q)).length}</span>
                 </Link>
               </li>
             ))}
