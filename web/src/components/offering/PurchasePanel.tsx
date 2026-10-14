@@ -6,7 +6,7 @@ import { useReadContract, useSwitchChain } from "wagmi";
 import { botChain, networkLabel } from "@/config/chain";
 import type { Offering } from "@/config/offerings";
 import { identityRegistryAbi } from "@/lib/abi";
-import { formatAmount, shortHex } from "@/lib/format";
+import { contactHref, formatAmount, shortHex } from "@/lib/format";
 import { quoteFor } from "@/lib/quote";
 import { useWallet } from "@/lib/useWallet";
 import { StatusBlock } from "../StatusBlock";
@@ -164,7 +164,7 @@ export function PurchasePanel({
           {walletShown} is not registered as eligible for {tok}. Truva can’t change that; eligibility is set by
           the issuer’s identity process.
         </p>
-        <a className="link-plain" href={`mailto:${offering.issuer.contact}?subject=${encodeURIComponent(`Eligibility for ${offering.name}`)}`}>
+        <a className="link-plain" href={contactHref(offering.issuer.contact, `Eligibility for ${offering.name}`)}>
           Contact the issuer
         </a>
       </>

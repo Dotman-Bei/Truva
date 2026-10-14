@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { explorerAddress, networkLabel } from "@/config/chain";
 import { offerings } from "@/config/offerings";
 import { liveOffering } from "@/lib/offeringMeta";
-import { formatAmount } from "@/lib/format";
+import { contactHref, formatAmount } from "@/lib/format";
 import { previewEnabled } from "@/lib/preview";
 import { verifyOffering } from "@/lib/verify";
 import { HashLine } from "@/components/HashLine";
@@ -141,8 +141,8 @@ export default async function OfferingPage({ params, searchParams }: Props) {
               <div>
                 <dt>Contact</dt>
                 <dd>
-                  <a className="link-plain" href={`mailto:${offering.issuer.contact}`}>
-                    {offering.issuer.contact}
+                  <a className="link-plain" href={contactHref(offering.issuer.contact)} target="_blank" rel="noreferrer">
+                    {offering.issuer.contact.replace(/^https?:\/\//, "")}
                   </a>
                 </dd>
               </div>

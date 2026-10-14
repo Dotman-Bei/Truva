@@ -6,7 +6,7 @@ import { formatUnits, type Address } from "viem";
 import { useReadContract, useSwitchChain, useWriteContract } from "wagmi";
 import { botChain, chainId, explorerAddress, explorerTx, networkLabel } from "@/config/chain";
 import { erc20Abi, identityRegistryAbi } from "@/lib/abi";
-import { formatAmount, shortHex } from "@/lib/format";
+import { contactHref, formatAmount, shortHex } from "@/lib/format";
 import type { Intent } from "@/lib/intentTypes";
 import { isTerminal } from "@/lib/stateMachine";
 import { STATES, type CheckoutState } from "@/lib/states";
@@ -216,7 +216,7 @@ export function CheckoutView({ initial, config }: { initial: Intent; config: Che
         <>
           <a
             className="button button--primary"
-            href={`mailto:${config.issuerContact}?subject=${encodeURIComponent(`Delivery failed for ${intent.id}`)}`}
+            href={contactHref(config.issuerContact, `Delivery failed for ${intent.id}`)}
           >
             Contact the issuer
           </a>

@@ -25,7 +25,9 @@ function clean(input: unknown, current: { status: string }): EditableMeta | stri
     out.shortDescription = m.shortDescription.trim();
   }
   if (m.issuerContact !== undefined) {
-    if (typeof m.issuerContact !== "string" || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(m.issuerContact)) return "Issuer contact must be an email address.";
+    if (typeof m.issuerContact !== "string" || !(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(m.issuerContact) || /^https:\/\/\S+$/.test(m.issuerContact))) {
+      return "Issuer contact must be an email address or an https link.";
+    }
     out.issuerContact = m.issuerContact;
   }
   if (m.disclosures !== undefined) {

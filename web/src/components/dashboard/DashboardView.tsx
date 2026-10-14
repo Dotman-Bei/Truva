@@ -357,7 +357,7 @@ export function DashboardView({
               </label>
               <label htmlFor={ids.contact}>
                 <span>Issuer contact</span>
-                <input id={ids.contact} className={styles.input} type="email" value={contact} onChange={(e) => setContact(e.target.value)} />
+                <input id={ids.contact} className={styles.input} value={contact} onChange={(e) => setContact(e.target.value)} />
               </label>
               <label htmlFor={ids.disc}>
                 <span>Disclosure links, one per line as “Title | https://…”</span>

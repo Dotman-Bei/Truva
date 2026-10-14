@@ -8,3 +8,9 @@ export function formatAmount(value: string | number, fractionDigits = 2): string
   if (!Number.isFinite(n)) return "Unavailable";
   return n.toLocaleString("en-GB", { minimumFractionDigits: fractionDigits, maximumFractionDigits: fractionDigits });
 }
+
+/** Issuer contact may be an email or an https page; link either correctly. */
+export function contactHref(contact: string, subject?: string): string {
+  if (/^https?:\/\//.test(contact)) return contact;
+  return `mailto:${contact}${subject ? `?subject=${encodeURIComponent(subject)}` : ""}`;
+}
