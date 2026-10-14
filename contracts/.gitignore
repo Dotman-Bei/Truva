@@ -3,3 +3,4 @@ cache/
 broadcast/*/968/dry-run/
 lib/
 .env
+node_modules/
