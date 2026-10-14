@@ -15,7 +15,11 @@ export function PageHead({ title, note, children }: { title: string; note?: Reac
           {note}
         </p>
       )}
-      {children && <div className={styles.extra}>{children}</div>}
+      {children && (
+        <div className={styles.extra} data-rise style={{ "--i": 1 } as React.CSSProperties}>
+          {children}
+        </div>
+      )}
     </header>
   );
 }

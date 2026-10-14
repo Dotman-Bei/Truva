@@ -13,7 +13,7 @@ export function Footer() {
       </p>
 
       <div className={styles.row}>
-        <ul className={styles.places}>
+        <ul className={styles.places} data-reveal="rows">
           {explorerHome && (
             <li>
               <a className="link" href={explorerHome} target="_blank" rel="noreferrer">
@@ -38,7 +38,7 @@ export function Footer() {
           </li>
         </ul>
 
-        <div className={styles.columns}>
+        <div className={styles.columns} data-reveal="rows">
           <div>
             <h2 className={styles.colHead}>Product</h2>
             <ul>
