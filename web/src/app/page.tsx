@@ -105,15 +105,21 @@ export default async function Home() {
 
       {/* 2. How buying works: call and response */}
       <section className={`${styles.steps} wrap section`} aria-labelledby="steps-title">
-        <h2 id="steps-title" className={`head on-axis ${styles.stepsTitle}`} data-reveal>
-          Three things you do
-        </h2>
+        <div className={styles.stepsHead}>
+          <h2 id="steps-title" className="head" data-reveal>
+            Three things you do
+          </h2>
+          <p className={styles.stepsCols} aria-hidden="true">
+            <span>What you do</span>
+            <span>What Truva shows you</span>
+          </p>
+        </div>
 
-        <ol className={`${styles.exchanges} on-axis`}>
+        <ol className={styles.exchanges}>
           <li className={styles.exchange}>
-            <p className={styles.say} data-reveal>
+            <h3 className={styles.say} data-reveal>
               First, connect your wallet.
-            </p>
+            </h3>
             <div className={styles.call} data-reveal style={{ "--i": 1 } as React.CSSProperties}>
               <span className={`${styles.fakeButton} nums`} data-ui aria-label="Example connected wallet">
                 0x3f2a…91c4 <span className={styles.fakeNet}>{networkLabel}</span>
@@ -131,9 +137,9 @@ export default async function Home() {
           </li>
 
           <li className={styles.exchange}>
-            <p className={styles.say} data-reveal>
+            <h3 className={styles.say} data-reveal>
               Then, choose an amount.
-            </p>
+            </h3>
             <div className={styles.call} data-reveal style={{ "--i": 1 } as React.CSSProperties}>
               <span className={`${styles.fakeField} nums`} data-ui aria-label="Example amount field">
                 250 <span className="muted">{pay}</span>
@@ -164,9 +170,9 @@ export default async function Home() {
           </li>
 
           <li className={styles.exchange}>
-            <p className={styles.say} data-reveal>
+            <h3 className={styles.say} data-reveal>
               Pay once, and watch it settle.
-            </p>
+            </h3>
             <div className={styles.call} data-reveal style={{ "--i": 1 } as React.CSSProperties}>
               <span className={`${styles.fakePrimary} nums`} data-ui aria-label="Example pay button">
                 Pay 250.00 {pay}
@@ -209,7 +215,7 @@ export default async function Home() {
             </div>
           </li>
         </ol>
-        <p className={`${styles.example} on-axis small muted`}>
+        <p className={`${styles.example} small muted`}>
           The wallet, amounts, reference and hashes above are examples of what Truva shows.
         </p>
       </section>
@@ -221,6 +227,13 @@ export default async function Home() {
       <section id="not-a-deed" className={styles.deed} aria-labelledby="deed-title">
         <div className={styles.tiles}>
           <div className={`${styles.tile} ${styles.slogan}`}>
+            <p className={styles.deedLead} data-reveal>
+            A token is a record on BOT Chain, nothing more. Truva does not create legal ownership, hold custody,
+            value an asset, or prove that an underlying asset exists. Those obligations stay with the issuer, who is
+            named on every offering with what one token represents and what it does not. Eligibility is decided by
+            the token suite’s IdentityRegistry and ModularCompliance contracts, not by Truva, and every transaction
+            here is public: anyone can see wallet addresses and amounts on the explorer.
+          </p>
             <h2 id="deed-title" className={styles.sloganText}>
               Not a<br />
               deed
@@ -241,15 +254,6 @@ export default async function Home() {
               className={styles.img}
             />
           </div>
-        </div>
-        <div className={styles.deedText}>
-          <p className="lead" data-reveal>
-            A token is a record on BOT Chain, nothing more. Truva does not create legal ownership, hold custody,
-            value an asset, or prove that an underlying asset exists. Those obligations stay with the issuer, who is
-            named on every offering with what one token represents and what it does not. Eligibility is decided by
-            the token suite’s IdentityRegistry and ModularCompliance contracts, not by Truva, and every transaction
-            here is public: anyone can see wallet addresses and amounts on the explorer.
-          </p>
         </div>
       </section>
 
@@ -317,7 +321,7 @@ export default async function Home() {
       </section>
 
       {/* 6. Close: the idea again, inverted */}
-      <section className={`${styles.close} on-field`} aria-labelledby="close-title">
+      <section className={styles.close} aria-labelledby="close-title">
         <h2 id="close-title" className={`${styles.closeTitle} lines`}>
           <span className="line">
             <span data-reveal>Verify before</span>
@@ -333,7 +337,7 @@ export default async function Home() {
             Truva checks your wallet against the offering’s identity registry before checkout opens. If the check
             can’t run, checkout stays closed.
           </p>
-          <Link href={`${offeringHref}#eligibility`} className="button button--primary">
+          <Link href={`${offeringHref}#eligibility`} className={`button ${styles.closeButton}`}>
             Check eligibility
           </Link>
         </div>
