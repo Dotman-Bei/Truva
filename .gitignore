@@ -4,3 +4,7 @@ node_modules/
 .env.local
 .taste-skill/inspect/
 *.log
+
+# Local tooling: the design skill and its inspector screenshots
+.claude/
+.taste-skill/
