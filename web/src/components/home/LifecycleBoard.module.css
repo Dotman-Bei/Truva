@@ -1,0 +1,85 @@
+.board {
+  background: var(--ink);
+  color: var(--field-ink);
+  padding: var(--space-8) 12px;
+}
+
+.intro { padding-inline: calc(var(--margin) - 12px); margin-bottom: var(--space-7); }
+.lede {
+  margin-left: var(--axis);
+  max-width: 34ch;
+  font-size: var(--step-lead);
+  line-height: 1.35;
+}
+
+.rows { display: flex; flex-direction: column; gap: 4px; }
+
+.row {
+  background: var(--field-2);
+  transition: background-color var(--t-ui) ease, color var(--t-ui) ease;
+}
+.open { background: var(--accent); color: var(--accent-ink); }
+
+.trigger {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-4);
+  width: 100%;
+  min-height: 64px;
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+}
+.name {
+  font-family: var(--font-display);
+  font-size: var(--step-lead);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+.open .name { font-size: var(--step-head); }
+.meaning, .next { display: none; }
+.status { justify-self: end; }
+
+@media (hover: hover) and (pointer: fine) {
+  .row:not(.open):hover { background: #1f4a39; }
+}
+
+.panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 320ms var(--ease-out);
+}
+.panel > div { overflow: hidden; }
+.open .panel { grid-template-rows: 1fr; }
+:global(html:not(.js)) .panel { grid-template-rows: 1fr; }
+
+.facts { display: grid; gap: var(--space-2); padding: 0 var(--space-4); }
+.facts dt { font-size: var(--step-small); }
+.facts dd { font-weight: 500; }
+.detail {
+  padding: var(--space-3) var(--space-4) var(--space-5);
+  max-width: 60ch;
+  font-size: var(--step-body);
+  line-height: 1.5;
+}
+
+@media (min-width: 1024px) {
+  .board { padding-block: var(--space-9); }
+  .trigger {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: var(--gutter);
+    min-height: 72px;
+    padding: 0 var(--space-5);
+  }
+  .name { grid-column: 1 / 6; }
+  .meaning { display: block; grid-column: 6 / 10; font-size: var(--step-body); line-height: 1.35; }
+  .next { display: block; grid-column: 10 / 12; font-size: var(--step-body); }
+  .status { grid-column: 12 / 13; }
+  .open .trigger { min-height: 120px; align-items: end; padding-bottom: var(--space-3); }
+  .facts { display: none; }
+  .detail {
+    /* starts on the "meaning" column: padding + 5 columns + 5 gutters */
+    margin-left: calc(var(--space-5) + (100% - 2 * var(--space-5) - 11 * var(--gutter)) / 12 * 5 + 5 * var(--gutter));
+    padding: 0 var(--space-5) var(--space-6) 0;
+  }
+}
