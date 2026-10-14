@@ -1,0 +1,30 @@
+.ladder { display: none; }
+.compact { display: grid; gap: var(--space-2); }
+.segments { display: flex; gap: 4px; }
+.segment { flex: 1; height: 8px; background: var(--surface-2); transition: background-color var(--t-ui) ease; }
+.segDone { background: var(--ink); }
+.seg_neutral { background: var(--st-neutral); outline: 2px solid var(--ink); outline-offset: -2px; }
+.seg_progress { background: var(--st-progress); }
+.seg_done { background: var(--st-done); }
+.seg_fail { background: var(--st-fail); }
+.seg_closed { background: var(--st-closed); }
+.seg_demo { background: var(--accent); }
+.compactLabel { font-weight: 500; }
+
+@media (min-width: 1024px) {
+  .compact { display: none; }
+  .ladder { display: flex; flex-direction: column; gap: 4px; }
+  .ladder li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-3);
+    min-height: 56px;
+    padding: 0 var(--space-4);
+  }
+  .passed { background: var(--surface); }
+  .passed .small { color: var(--muted); }
+  .future { color: var(--muted); background: transparent; }
+  .current { background: var(--ink); color: var(--bg); padding-left: 8px !important; }
+  .current .small { color: var(--field-muted); }
+}
