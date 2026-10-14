@@ -1,0 +1,18 @@
+.line { display: inline-flex; flex-wrap: wrap; align-items: center; gap: var(--space-1) var(--space-4); font-weight: 500; }
+.action {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-weight: 400;
+  text-decoration: underline;
+  text-underline-offset: 0.22em;
+  text-decoration-thickness: 0.07em;
+  text-decoration-color: currentColor;
+  transition: opacity var(--t-hover) ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .action:hover { opacity: 0.7; }
+}
+@media (min-width: 768px) {
+  .action { min-height: 32px; }
+}
