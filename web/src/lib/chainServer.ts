@@ -1,7 +1,7 @@
 import "server-only";
 import { createPublicClient, decodeEventLog, http, type Address, type Hash } from "viem";
 import { botChain, chainConfigured } from "@/config/chain";
-import { erc20Abi, identityRegistryAbi } from "./abi";
+import { agentRoleAbi, erc20Abi, identityRegistryAbi } from "./abi";
 
 export const publicClient = chainConfigured
   ? createPublicClient({ chain: botChain, transport: http(undefined, { timeout: 8000 }) })
@@ -60,4 +60,18 @@ export async function checkTransfer(
     }
   });
   return match ? { status: "confirmed", block: receipt.blockNumber } : { status: "mismatch", block: receipt.blockNumber };
+}
+
+/** True when `wallet` is an agent or the owner of the ERC-3643 token; null when it can't be read. */
+export async function isOfferingAgent(token: Address | null, wallet: Address): Promise<boolean | null> {
+  if (!publicClient || !token) return null;
+  try {
+    const [agent, owner] = await Promise.all([
+      publicClient.readContract({ address: token, abi: agentRoleAbi, functionName: "isAgent", args: [wallet] }),
+      publicClient.readContract({ address: token, abi: agentRoleAbi, functionName: "owner" }).catch(() => null),
+    ]);
+    return agent || (!!owner && owner.toLowerCase() === wallet.toLowerCase());
+  } catch {
+    return null;
+  }
 }
