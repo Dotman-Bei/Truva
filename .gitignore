@@ -8,3 +8,6 @@ node_modules/
 # Local tooling: the design skill and its inspector screenshots
 .claude/
 .taste-skill/
+
+# Deploy credentials
+.deploy.env
