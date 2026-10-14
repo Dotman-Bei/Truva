@@ -7,34 +7,47 @@ and Truva verifies the payment-to-delivery lifecycle on-chain. It integrates BOT
 | Folder | What it is |
 | --- | --- |
 | [`web/`](web/) | Next.js app: seven pages, the intent API and on-chain verification. Setup in [`web/README.md`](web/README.md). |
-| [`contracts/`](contracts/) | `TestUSD`, the valueless Bohr-only payment token (Bohr testnet has none). Foundry. |
+| [`contracts/`](contracts/) | `TestUSD` (valueless payment token) and the scripts that deploy Truva's demo ERC-3643 suite. Foundry. |
 | [`docs/FRONTEND.md`](docs/FRONTEND.md) | Design spec. [`Truva_PRD.md`](Truva_PRD.md) is the product spec. |
 
 ```bash
 cd web && npm install && cp .env.example .env.local && npm run dev   # app
-cd web && npm test                                                    # 13 unit tests
-cd contracts && forge install foundry-rs/forge-std --no-git && forge test   # 7 contract tests
+cd web && npm test                                                    # 17 unit tests
+cd contracts && npm install && forge install foundry-rs/forge-std --no-git && forge test   # 12 contract tests
 ```
 
-## Integration status (verified 2026-10-14)
+## Testnet status (2026-10-14): a real checkout has settled on Bohr
 
-| Piece | Status |
+**First end-to-end checkout, `TRV-ZBXK-3JY7`, settled on Bohr testnet (chain 968):**
+
+| Step | Transaction |
 | --- | --- |
-| Bohr testnet, chain 968, `rpc.bohr.life` | Verified with `eth_chainId`. |
-| PRWA token `0x9228…0a740` | Verified: "Project Real World Asset", PRWA, 6 decimals. |
-| IdentityRegistry `0x17e3…5F53`, ModularCompliance `0x1E2e…E37A` | Verified: the token's own `identityRegistry()` and `compliance()` return them. Sample wallets Alice and Bob read `isVerified == true`; an unknown wallet reads `false`. |
-| Payment token | **None exists on Bohr.** `contracts/TestUSD` is written, tested and dry-run against Bohr; deploying it needs about 0.02 test BOT from your wallet. |
-| Issuer treasury wallet | **Not set.** Any wallet you control. |
-| Issuer inventory wallet | **Blocked externally.** It must hold PRWA and be registered in the IdentityRegistry, and only BOT Chain's agents can mint PRWA or register identities. |
-| Token transfers | **Blocked externally.** PRWA is paused; deliveries revert until BOT Chain's Token Agent calls `unpause()`. |
-| Buyer eligibility for your wallet | **Blocked externally.** Registration is done by the Identity Registry Agent on request. |
+| Buyer draws test tUSD from the faucet | [`0x96c46ff3…26d9ae9`](https://scan.bohr.life/tx/0x96c46ff3e595d4cbd9dd43a7993d727c47d63ed7c1151f2d703fe04cb26d9ae9) |
+| Buyer pays 250 tUSD to the issuer treasury (verified by Truva → `DELIVERY_PENDING`) | [`0x90219d84…23e1a6c`](https://scan.bohr.life/tx/0x90219d84795567871d4c7aceef99aa7e9a0af7df294e1fc9a240c831a23e1a6c), block 26843733 |
+| Issuer delivers 25 TDA through the ERC-3643 suite (verified by Truva → `SETTLED`) | [`0x0a4b309e…f586e47`](https://scan.bohr.life/tx/0x0a4b309e220fb50b5bc1e8f1991cf20cd32bfb50b6f6fdbb63d7eb876f586e47), block 26843752 |
 
-BOT Chain's testnet guide says to request test eligibility, test assets and test gas "through public support
-channels" (<https://www.botchain.ai/en/ecosystem-support>). Until then Truva reads the real suite, shows the real
-eligibility result for any wallet, and keeps checkout closed with the reasons listed on the offering.
+Checked on the same run: replaying that payment hash on a new checkout is refused; an ineligible wallet is
+refused (403); an amount under the minimum is refused (400).
 
-A second PRWA suite (`0xA7aE…6036`, IdentityRegistry `0x5C3f…3417`) is referenced on the testnet-practice page.
-It is also live; Truva uses the one in the address table. Ask BOT Chain which one they will unpause.
+### What's deployed on Bohr testnet
+
+| Contract | Address |
+| --- | --- |
+| Truva Demo Asset (TDA), ERC-3643 token | `0xE00EE1B6da55aA48f5DAaF5d486BCa534165FFe1` |
+| IdentityRegistry | `0x6878acfb92EC4a4D2921889CCd04284BC357d3D1` |
+| ModularCompliance | `0xc3D514b77f253F328c54D94fddA3e7FD6024fBC9` |
+| TestUSD (tUSD), payment token | `0xA5064e9b0F54751C93A3283BAa605948f4dce56C` |
+
+The full list (registries, claim issuer, ONCHAINIDs, roles) is in
+[`contracts/deployments/bohr-demo-suite.json`](contracts/deployments/bohr-demo-suite.json).
+
+**Why Truva runs its own suite.** BOT Chain's public PRWA suite (token `0x9228…0a740`) is paused, its
+registry only accepts identities registered by BOT Chain's agents, and its T-REX gateway is closed to public
+deployment. So Truva deployed the *unmodified* Tokeny T-REX 4.1.6 and ONCHAINID 2.2.1 contracts on Bohr,
+using BOT Chain's `KYC_APPROVED` claim topic, with Truva's test wallet as issuer and agent. Eligibility is real:
+each buyer has an ONCHAINID holding a signed KYC claim from a trusted ClaimIssuer, and the token itself rejects
+transfers to unverified wallets. To switch back to BOT Chain's suite once it is unpaused, change the three
+`NEXT_PUBLIC_RWA_*` addresses in `web/.env.local`; nothing else changes.
 
 ## Threat model
 
