@@ -179,3 +179,9 @@ p { text-wrap: pretty; }
 @media (max-width: 1023px) {
   body:has(#eligibility) { padding-bottom: 72px; }
 }
+
+/* Printing a settled checkout prints the receipt only. */
+@media print {
+  body:has(#receipt) > header, body:has(#receipt) footer, body:has(#receipt) [role="note"] { display: none !important; }
+  body { background: #fff; color: #000; }
+}
