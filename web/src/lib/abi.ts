@@ -54,3 +54,11 @@ export const erc20Abi = [
     ],
   },
 ] as const;
+
+/** ERC-3643 token getters used for the suite acceptance checks. */
+export const rwaTokenAbi = [
+  { type: "function", name: "identityRegistry", stateMutability: "view", inputs: [], outputs: [{ type: "address" }] },
+  { type: "function", name: "compliance", stateMutability: "view", inputs: [], outputs: [{ type: "address" }] },
+  { type: "function", name: "paused", stateMutability: "view", inputs: [], outputs: [{ type: "bool" }] },
+  { type: "function", name: "decimals", stateMutability: "view", inputs: [], outputs: [{ type: "uint8" }] },
+] as const;
