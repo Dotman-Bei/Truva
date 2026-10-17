@@ -53,6 +53,22 @@ proxies on BOT Chain's published T-REX 4.1.3 and ONCHAINID 2.2.1 implementation 
 "registered by the issuer" without KYC claims. BOT Chain owns those authorities and could upgrade the logic behind
 the proxies. Selling a real asset for real money needs a real issuer, legal review and a security review first.
 
+## Truva team test wallets (internal QA, BOT Chain mainnet, 2026-10-17)
+
+**These are Truva's own wallets, created and funded by the team for QA. They are not users and are not
+counted as adoption.** Each wallet drew test tUSD from the faucet and made one payment (10 wallet
+transactions); the live site created each checkout and verified payment and delivery on-chain.
+
+| Wallet | Address | Checkout | Amount | Faucet | Payment | Delivery (issuer) |
+| --- | --- | --- | --- | --- | --- | --- |
+| QA1 | `0xdF383C87F9450663CDeAA0Fd7d65e6AFDF0BE68E` | [`TRV-33SC-2CFC`](https://truva-smoky.vercel.app/checkout/TRV-33SC-2CFC) | 50 tUSD | [`0xa0f7b329…`](https://scan.botchain.ai/tx/0xa0f7b3294e2b0696244cf4ccbeb1633ea9f87fa1eeac44ba791f3263bcf39fd8) | [`0x64ffcb4b…`](https://scan.botchain.ai/tx/0x64ffcb4bc34e510f9c0c35410909f57d28f1d350b8a738c3fa30df974805897a) | [`0x81928363…`](https://scan.botchain.ai/tx/0x819283636c8a49301184d7077b29db379b2c76f75d04d3bbb234ba8e09e9f0a3) |
+| QA2 | `0x8527c68D59CB43882A55F5F3A23D75d9A89A6438` | [`TRV-SVYX-7FCP`](https://truva-smoky.vercel.app/checkout/TRV-SVYX-7FCP) | 75 tUSD | [`0xe0cc8283…`](https://scan.botchain.ai/tx/0xe0cc82837e0d6d47df852fc5c4efc2120d5e93d62dd14b5afa4e51fac99584ec) | [`0x69c6ec58…`](https://scan.botchain.ai/tx/0x69c6ec58065f9e3373b93fe3ca22cdb50a3c047432ab536f82f3556230706198) | [`0x89d36fd7…`](https://scan.botchain.ai/tx/0x89d36fd75055f0419073a503ae18e770eead63603901ef004582ce04fd3da09b) |
+| QA3 | `0x7a314C1DE792f0071D32774Dab8337d90EdF985b` | [`TRV-2JD3-RT3V`](https://truva-smoky.vercel.app/checkout/TRV-2JD3-RT3V) | 100 tUSD | [`0xf681ab51…`](https://scan.botchain.ai/tx/0xf681ab51ff4f0c510e6b17c3b52f532572a1a5f717f47412787c855e3ebbee91) | [`0x9cf07b6a…`](https://scan.botchain.ai/tx/0x9cf07b6af65f2a33e31fd28d97581e3553464fa9b54662278f6009c6d0423951) | [`0x6862a9af…`](https://scan.botchain.ai/tx/0x6862a9aff4368ecbb14f417c22f7e1abdfac7237b8c9a946f42ed68e193b8ec6) |
+| QA4 | `0x12eb8218f81b804e829437b37a22f7499E641aB5` | [`TRV-5SDQ-FZJ3`](https://truva-smoky.vercel.app/checkout/TRV-5SDQ-FZJ3) | 150 tUSD | [`0x739bfe29…`](https://scan.botchain.ai/tx/0x739bfe2901097334073753a5c8bfa27dce9754a3d9ea569bcd8f4a99dc4b0d87) | [`0x840c2fb0…`](https://scan.botchain.ai/tx/0x840c2fb0818a323a6900cd760effd1fbb4ff706f20983d6ebfa0eae57a3b0c4f) | [`0xc6884b90…`](https://scan.botchain.ai/tx/0xc6884b9060924a490d32412057ad3526b18e8d53960b1e6d3033400e692e21b7) |
+| QA5 | `0x5aC30b575B94693E2126EF1C6A9e35375fE7C550` | [`TRV-QGAH-SXB6`](https://truva-smoky.vercel.app/checkout/TRV-QGAH-SXB6) | 200 tUSD | [`0xcec0a987…`](https://scan.botchain.ai/tx/0xcec0a9877daa4f771d8b969d43f893ca5d82bdd3122cee7682cbe1e216ded600) | [`0x56431790…`](https://scan.botchain.ai/tx/0x564317908d3c4e443a0b0a44b1202f7dc30af02e23539b412e40f2cafb404c20) | [`0x3ff264b9…`](https://scan.botchain.ai/tx/0x3ff264b90f77e1b5180f3922cd2cdb448587b69baa337f9ef87e020edb2b95e4) |
+
+All five reached `SETTLED`. Registration of the five wallets cost 0.042 BOT; each wallet spent about 0.0021 BOT.
+
 ## Testnet status (2026-10-14): a real checkout has settled on Bohr
 
 **First end-to-end checkout, `TRV-ZBXK-3JY7`, settled on Bohr testnet (chain 968):**
