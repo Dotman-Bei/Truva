@@ -28,6 +28,7 @@
   line-height: 1.2;
 }
 .places a { color: var(--accent); }
+.chain .colHead { margin-bottom: var(--space-4); }
 
 .columns {
   display: grid;

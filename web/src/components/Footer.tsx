@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { explorerHome, networkLabel } from "@/config/chain";
+import { explorerHome, isTestnet, networkLabel } from "@/config/chain";
 import styles from "./Footer.module.css";
 
 export function Footer() {
@@ -10,30 +10,38 @@ export function Footer() {
       </p>
 
       <div className={styles.row}>
-        <ul className={styles.places} data-reveal="rows">
-          {explorerHome && (
+        <div className={styles.chain}>
+          <h2 className={styles.colHead}>Built on BOT Chain</h2>
+          <ul className={styles.places} data-reveal="rows">
             <li>
-              <a className="link" href={explorerHome} target="_blank" rel="noreferrer">
-                {networkLabel} explorer
+              <a className="link" href="https://www.botchain.ai/en/" target="_blank" rel="noreferrer">
+                BOT Chain official website
               </a>
             </li>
-          )}
-          <li>
-            <a
-              className="link"
-              href="https://dev-docs.botchain.ai/docs/RWA/project-rwa-developer-docs/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              BOT Chain RWA docs
-            </a>
-          </li>
-          <li>
-            <a className="link" href="https://faucet.botchain.ai/basic" target="_blank" rel="noreferrer">
-              Testnet faucet
-            </a>
-          </li>
-        </ul>
+            <li>
+              <a className="link" href={explorerHome ?? "https://scan.botchain.ai"} target="_blank" rel="noreferrer">
+                BOT Chain Explorer{isTestnet ? " (Bohr testnet)" : ""}
+              </a>
+            </li>
+            <li>
+              <a
+                className="link"
+                href="https://dev-docs.botchain.ai/docs/RWA/project-rwa-developer-docs/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                BOT Chain RWA docs
+              </a>
+            </li>
+            {isTestnet && (
+              <li>
+                <a className="link" href="https://faucet.botchain.ai/basic" target="_blank" rel="noreferrer">
+                  Testnet faucet
+                </a>
+              </li>
+            )}
+          </ul>
+        </div>
 
         <div className={styles.columns} data-reveal="rows">
           <div>
