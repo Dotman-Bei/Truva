@@ -55,6 +55,21 @@ each buyer has an ONCHAINID holding a signed KYC claim from a trusted ClaimIssue
 transfers to unverified wallets. To switch back to BOT Chain's suite once it is unpaused, change the three
 `NEXT_PUBLIC_RWA_*` addresses in `web/.env.local`; nothing else changes.
 
+## Onboard testers
+
+Only registered wallets can buy. To let someone test the live site, ask for their wallet address (MetaMask on
+Bohr testnet) and run, from `contracts/`:
+
+```bash
+./onboard.sh 0xTHEIR_WALLET 0xANOTHER_WALLET     # registers them and sends 0.05 test BOT each for gas
+./onboard.sh --check 0xTHEIR_WALLET               # only shows whether a wallet is eligible
+```
+
+Each new tester gets an ONCHAINID with a signed KYC claim and is registered in the IdentityRegistry, at about
+0.11 test BOT from the issuer wallet. Wallets that are already eligible are skipped. Testers then open the
+offering, use **Get 10,000 test tUSD**, and pay. To keep testers simple, the issuer manages their ONCHAINID;
+in production each investor would hold their own identity key.
+
 ## Threat model
 
 | Threat | What Truva does |
