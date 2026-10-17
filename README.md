@@ -22,6 +22,31 @@ cd web && npm test                                                    # 17 unit 
 cd contracts && npm install && forge install foundry-rs/forge-std --no-git && forge test   # 12 contract tests
 ```
 
+## BOT Chain mainnet: capability demo (2026-10-17)
+
+A real checkout settled on **BOT Chain mainnet (chain 677)**, `TRV-QR56-B6AM`, verified by Truva step by step:
+
+| Step | Mainnet transaction |
+| --- | --- |
+| Buyer draws test tUSD | [`0x7d5464a9…0576fc66`](https://scan.botchain.ai/tx/0x7d5464a938d6f6b55e5aeea0612884fa1d17ea858376fb64c629d4a30576fc66) |
+| Buyer pays 250 tUSD → `DELIVERY_PENDING` | [`0x72efd611…ad46c08c`](https://scan.botchain.ai/tx/0x72efd611d75e32f63b53059bfe88d8e88ace239afa0cda5b3ed8e21ead46c08c), block 27001726 |
+| Issuer delivers 25 TDA → `SETTLED` | [`0x7162ea6b…1aab9846f`](https://scan.botchain.ai/tx/0x7162ea6b240984937e50ded9d73588db4c738c1010eb82b873da39d1aab9846f), block 27001733 |
+
+| Contract (mainnet) | Address |
+| --- | --- |
+| Truva Demo Asset (TDA) | `0x4180485a08B52c54Fd6Ebd632D787356c35112b3` |
+| IdentityRegistry | `0x7f3727Ae8906CB67405626164D96eb65Eae282af` |
+| ModularCompliance | `0xF15E7096e6bb4194826D72EE357297b5A15A1215` |
+| TestUSD (tUSD) | `0x7164eB049f6A99D3a704a3137e8D6918B5A47609` |
+
+Full list: [`contracts/deployments/bot-mainnet-demo.json`](contracts/deployments/bot-mainnet-demo.json).
+
+**This is a capability demo, like BOT Chain's own mainnet PRWA.** Both tokens are valueless and no real-world
+asset is sold. To keep gas low (0.102 BOT for the whole deployment, at the network's 20 gwei floor), the suite is
+proxies on BOT Chain's published T-REX 4.1.3 and ONCHAINID 2.2.1 implementation authorities, and eligibility is
+"registered by the issuer" without KYC claims. BOT Chain owns those authorities and could upgrade the logic behind
+the proxies. Selling a real asset for real money needs a real issuer, legal review and a security review first.
+
 ## Testnet status (2026-10-14): a real checkout has settled on Bohr
 
 **First end-to-end checkout, `TRV-ZBXK-3JY7`, settled on Bohr testnet (chain 968):**
