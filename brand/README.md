@@ -24,3 +24,12 @@ as a favicon. **The wordmark** is "Truva" in Bodoni Moda 500, tracked −3%, con
 24 px tall; don't recolour the legs separately in one-colour versions, rotate, add effects or gradients, or
 set the wordmark in another typeface. Regenerate everything with `node build-logo.mjs <outDir>` (needs
 `opentype.js`, `@fontsource/bodoni-moda` and `sharp`).
+
+## X (Twitter)
+
+| File | Size | Use |
+| --- | --- | --- |
+| `social/x-profile.png` | 1000 × 1000 | Profile picture. The T is sized to sit inside X's circular crop. |
+| `social/x-header.png` | 1500 × 500 | Header. Text stays clear of the avatar (bottom-left) and of the ~60 px X crops top and bottom on mobile. |
+
+SVG sources sit beside each PNG. Regenerate with `node build-social.mjs <outDir>`.
