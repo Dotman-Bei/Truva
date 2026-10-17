@@ -1,4 +1,5 @@
 import type { Address } from "viem";
+import { isTestnet, networkLabel } from "./chain";
 
 export type OfferingStatus = "Draft" | "Demo" | "Active" | "Paused" | "Closed";
 
@@ -43,14 +44,14 @@ export const offerings: Offering[] = [
     name: "Truva demo asset",
     titleLines: ["Truva demo", "asset"],
     shortDescription:
-      "A demonstration ERC-3643 token on Bohr testnet, issued by Truva to run the full checkout end to end. It carries no claim on any real-world asset.",
+      `A demonstration ERC-3643 token on ${networkLabel}, issued by Truva to run the full checkout end to end. It carries no claim on any real-world asset.`,
     issuer: {
-      legalName: "Truva testnet demo issuer (wallet 0xEab0…9ac9)",
+      legalName: `Truva ${isTestnet ? "testnet " : ""}demo issuer (wallet 0xEab0…9ac9)`,
       contact: "https://github.com/Dotman-Bei/Truva",
     },
     category: "Capability demonstration",
     represents:
-      "One unit of the Truva Demo Asset (TDA) on Bohr testnet, used to test eligibility, payment and delivery against a real ERC-3643 suite.",
+      `One unit of the Truva Demo Asset (TDA) on ${networkLabel}, used to test eligibility, payment and delivery against a real ERC-3643 suite.`,
     doesNotRepresent:
       "Ownership, custody, redemption rights, yield, or any interest in a real-world asset. It is a test token with no value.",
     token: {
@@ -63,7 +64,7 @@ export const offerings: Offering[] = [
       identityRegistry: addr(process.env.NEXT_PUBLIC_RWA_IDENTITY_REGISTRY_ADDRESS),
       compliance: addr(process.env.NEXT_PUBLIC_RWA_COMPLIANCE_ADDRESS),
     },
-    network: "Bohr testnet",
+    network: networkLabel,
     payment: { symbol: "tUSD", decimals: 6, address: addr(process.env.NEXT_PUBLIC_PAYMENT_TOKEN_ADDRESS) },
     treasury: addr(process.env.NEXT_PUBLIC_ISSUER_TREASURY_ADDRESS),
     inventory: addr(process.env.NEXT_PUBLIC_ISSUER_INVENTORY_ADDRESS),
@@ -75,7 +76,7 @@ export const offerings: Offering[] = [
     disclosures: [
       {
         title: "Suite deployment record (addresses and roles)",
-        href: "https://github.com/Dotman-Bei/Truva/blob/main/contracts/deployments/bohr-demo-suite.json",
+        href: `https://github.com/Dotman-Bei/Truva/blob/main/contracts/deployments/${isTestnet ? "bohr-demo-suite" : "bot-mainnet-demo"}.json`,
         type: "JSON",
         date: "2026-10-14",
       },

@@ -10,7 +10,7 @@ const env = {
 };
 
 export const isTestnet = env.name !== "bot-mainnet";
-export const networkLabel = isTestnet ? "Bohr testnet" : "BOT Chain";
+export const networkLabel = isTestnet ? "Bohr testnet" : "BOT Chain mainnet";
 export const networkShortLabel = isTestnet ? "Testnet" : "Mainnet";
 
 /** False until chain ID and RPC are configured. Writes stay disabled while false. */
