@@ -125,6 +125,13 @@ const token = process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TO
 
 export const kvBackend = url && token ? "redis" : "file";
 
+/**
+ * Keeps each network's records apart when one database serves several deployments. Bohr testnet (968)
+ * keeps unprefixed keys so its existing records stay readable.
+ */
+const chainId = Number(process.env.NEXT_PUBLIC_BOT_CHAIN_ID || 0);
+export const ns = (key: string) => (chainId === 968 || chainId === 0 ? key : `${chainId}:${key}`);
+
 export const kv: KV =
   url && token
     ? redisKV(new Redis({ url, token }))
@@ -132,7 +139,7 @@ export const kv: KV =
 
 /** Runs fn while holding a short lock on `name`, so two requests can't update one checkout at once. */
 export async function withLock<T>(name: string, fn: () => Promise<T>): Promise<T> {
-  const key = `lock:${name}`;
+  const key = ns(`lock:${name}`);
   for (let i = 0; i < 50; i++) {
     if (await kv.setNX(key, 1, 15_000)) {
       try {

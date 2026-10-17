@@ -1,6 +1,6 @@
 import "server-only";
 import { getOffering, offerings, type Offering, type OfferingStatus } from "@/config/offerings";
-import { kv, withLock } from "./kv";
+import { kv, ns, withLock } from "./kv";
 
 /**
  * Issuer-editable, non-critical offering metadata. Contract addresses, price rules and the
@@ -17,7 +17,7 @@ export type EditableMeta = {
 export type MetaChange = { offeringId: string; by: string; at: string; fields: string[] };
 
 type Store = { overrides: Record<string, EditableMeta>; log: MetaChange[] };
-const KEY = "offering-meta";
+const KEY = ns("offering-meta");
 
 async function read(): Promise<Store> {
   return (await kv.get<Store>(KEY)) ?? { overrides: {}, log: [] };

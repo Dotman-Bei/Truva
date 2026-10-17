@@ -5,7 +5,7 @@ import { isTestnet, networkLabel } from "@/config/chain";
 import { getOffering, type Offering } from "@/config/offerings";
 import { liveOffering } from "./offeringMeta";
 import { checkTransfer, isEligible } from "./chainServer";
-import { kv, withLock } from "./kv";
+import { kv, ns, withLock } from "./kv";
 import type { Intent } from "./intentTypes";
 import { quoteFor } from "./quote";
 import { assertTransition } from "./stateMachine";
@@ -26,9 +26,9 @@ export class CheckoutError extends Error {
 
 // ---------- store: one record per checkout, a time index, and an owner per transaction hash ----------
 
-const intentKey = (id: string) => `intent:${id}`;
-const txKey = (hash: string) => `tx:${hash.toLowerCase()}`;
-const INDEX = "intents";
+const intentKey = (id: string) => ns(`intent:${id}`);
+const txKey = (hash: string) => ns(`tx:${hash.toLowerCase()}`);
+const INDEX = ns("intents");
 
 async function save(intent: Intent): Promise<void> {
   await kv.set(intentKey(intent.id), intent);
