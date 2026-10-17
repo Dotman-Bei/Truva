@@ -21,10 +21,26 @@ const jost = Jost({
   display: "swap",
 });
 
+const SITE_URL = "https://truva-smoky.vercel.app";
+const DESCRIPTION =
+  "Check eligibility, pay for an approved tokenized asset, and verify payment and delivery on BOT Chain.";
+
 export const metadata: Metadata = {
-  title: { default: "Truva: checkout for tokenized real-world assets", template: "%s | Truva" },
-  description:
-    "Check eligibility, pay for an approved tokenized asset, and verify payment and delivery on BOT Chain.",
+  metadataBase: new URL(SITE_URL),
+  title: { default: "Truva", template: "%s | Truva" },
+  applicationName: "Truva",
+  description: DESCRIPTION,
+  openGraph: { type: "website", siteName: "Truva", title: "Truva", description: DESCRIPTION, url: SITE_URL },
+  twitter: { card: "summary", title: "Truva", description: DESCRIPTION },
+};
+
+const STRUCTURED_DATA = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: "Truva",
+  url: SITE_URL,
+  applicationCategory: "FinanceApplication",
+  description: DESCRIPTION,
 };
 
 export const viewport: Viewport = { themeColor: "#f1f1ec" };
@@ -34,6 +50,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en" className={`${bodoni.variable} ${jost.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(STRUCTURED_DATA) }} />
       </head>
       <body>
         <Providers>
