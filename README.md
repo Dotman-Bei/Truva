@@ -4,7 +4,7 @@ An RWA checkout and settlement layer for BOT Chain: an eligible buyer pays for a
 and Truva verifies the payment-to-delivery lifecycle on-chain. It integrates BOT Chain's existing ERC-3643
 (T-REX) suite and never bypasses its identity or compliance rules.
 
-**Live on Bohr testnet: <https://truva-smoky.vercel.app>**: a real checkout settled through the live site,
+**Bohr testnet (earlier):** a real checkout settled through the live site while it ran on testnet,
 [`TRV-VNYT-JWSK`](https://truva-smoky.vercel.app/checkout/TRV-VNYT-JWSK) (payment
 [`0x378b736b…bd312d`](https://scan.bohr.life/tx/0x378b736b2c40c357315cb7a3912c1dd64c557d9d261bc6fc38a2e693b5bd312d),
 delivery [`0x1968c5de…21eebfe`](https://scan.bohr.life/tx/0x1968c5de1a45fdf70b03c35a942ec0ef46f18711bbaa3fdb4a3abf07b21eebfe)).
@@ -24,7 +24,13 @@ cd contracts && npm install && forge install foundry-rs/forge-std --no-git && fo
 
 ## BOT Chain mainnet: capability demo (2026-10-17)
 
-A real checkout settled on **BOT Chain mainnet (chain 677)**, `TRV-QR56-B6AM`, verified by Truva step by step:
+**Live on mainnet: <https://truva-smoky.vercel.app>.** A checkout settled through the live site:
+[`TRV-FER5-YGF7`](https://truva-smoky.vercel.app/checkout/TRV-FER5-YGF7) (payment
+[`0xebac234b…3d466cfc`](https://scan.botchain.ai/tx/0xebac234bdb92a60ca29d88e613ff7233159e7a8d599c4af3233d889a3d466cfc),
+delivery [`0x2857f76e…8d4e4d11`](https://scan.botchain.ai/tx/0x2857f76e5d3c287e9688186ffb372b2e50769bbf92d97e2e9a6cf5828d4e4d11)).
+Site status: <https://truva-smoky.vercel.app/api/health>.
+
+The first mainnet checkout, `TRV-QR56-B6AM`, was run through a local build before the site switched over:
 
 | Step | Mainnet transaction |
 | --- | --- |
