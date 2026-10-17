@@ -69,4 +69,26 @@ contract DemoSuiteTest is Test, DemoSuite {
     function test_buyerGotGasForItsOwnTransactions() public view {
         assertGt(vm.addr(buyerPk).balance, 0);
     }
+
+    function test_onboardingMakesAStrangerEligibleAndFundsGas() public {
+        address tester = address(0xBEEF);
+        assertFalse(IdentityRegistry(s.identityRegistry).isVerified(tester));
+        (, bool skipped) = _onboardTester(s.identityRegistry, s.claimIssuer, issuerPk, signerPk, tester);
+        assertFalse(skipped);
+        assertTrue(IdentityRegistry(s.identityRegistry).isVerified(tester));
+        assertEq(tester.balance, TESTER_GAS);
+
+        // The suite now lets the issuer deliver to the tester.
+        vm.prank(vm.addr(issuerPk));
+        Token(s.token).transfer(tester, 1e6);
+        assertEq(Token(s.token).balanceOf(tester), 1e6);
+    }
+
+    function test_onboardingTwiceIsANoOp() public {
+        address tester = address(0xBEEF);
+        (address first, ) = _onboardTester(s.identityRegistry, s.claimIssuer, issuerPk, signerPk, tester);
+        (address second, bool skipped) = _onboardTester(s.identityRegistry, s.claimIssuer, issuerPk, signerPk, tester);
+        assertTrue(skipped);
+        assertEq(first, second);
+    }
 }
