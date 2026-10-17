@@ -1,0 +1,17 @@
+{
+  "buyer": "0xFA2ED572F33cce6768C0BC1Ea839bb407bf7726b",
+  "buyerIdentity": "0xeDe74aee6E3b6b5A7DA93FceAc487B75e3EA9FE4",
+  "chainId": 677,
+  "claimTopicsRegistry": "0x84b503fc6945fAbB05AFad865eFd350A64143f6E",
+  "compliance": "0xF15E7096e6bb4194826D72EE357297b5A15A1215",
+  "identityRegistry": "0x7f3727Ae8906CB67405626164D96eb65Eae282af",
+  "identityRegistryStorage": "0x7e6E96dd71B4702231C1EeE2a580f1d8F56a410b",
+  "issuer": "0xEab04d84569849f09bd997A6cEfD9ace66159ac9",
+  "issuerIdentity": "0x84316CE038C179980b770B0D5f7F813F2cBcbdA3",
+  "note": "Capability demo: valueless tokens, no real-world asset. Proxies use BOT Chain T-REX and ONCHAINID implementation authorities.",
+  "onchainIdImplementationAuthority": "0xA5aeF4767C10fE47d1097b65Da55357B29bbbfF6",
+  "paymentToken": "0x7164eB049f6A99D3a704a3137e8D6918B5A47609",
+  "token": "0x4180485a08B52c54Fd6Ebd632D787356c35112b3",
+  "trexImplementationAuthority": "0x658B369FFfE2474310224c6DAe2f320A27A76D2E",
+  "trustedIssuersRegistry": "0xa4040aA8A9C4FAC2447ffB41b0fc6d10B77841Fa"
+}
