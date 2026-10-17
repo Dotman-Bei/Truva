@@ -47,6 +47,32 @@ abstract contract DemoSuite {
         sig = _sign(signerPk, prefixed);
     }
 
+    uint256 internal constant TESTER_GAS = 0.05 ether; // enough test BOT for a faucet draw and a payment
+
+    /// @notice Makes `tester` eligible: an ONCHAINID holding a signed KYC claim, registered in the
+    ///         IdentityRegistry, plus a little test BOT for gas. Skips wallets that are already verified.
+    /// @dev    Demo shortcut: the issuer manages the tester's ONCHAINID so testers never sign anything to be
+    ///         onboarded. In production the investor holds their own identity's management key.
+    function _onboardTester(
+        address identityRegistry,
+        address claimIssuer,
+        uint256 issuerPk,
+        uint256 signerPk,
+        address tester
+    ) internal returns (address identity, bool skipped) {
+        IdentityRegistry ir = IdentityRegistry(identityRegistry);
+        if (ir.isVerified(tester)) return (address(ir.identity(tester)), true);
+
+        _start(issuerPk);
+        Identity id = new Identity(_addr(issuerPk), false);
+        (bytes memory sig, bytes memory data) = _claimSignature(signerPk, address(id));
+        id.addClaim(KYC_APPROVED, 1, claimIssuer, sig, data, "");
+        ir.registerIdentity(tester, IIdentity(address(id)), COUNTRY);
+        if (tester.balance < TESTER_GAS) payable(tester).transfer(TESTER_GAS - tester.balance);
+        _stop();
+        return (address(id), false);
+    }
+
     function _deploySuite(uint256 issuerPk, uint256 signerPk, uint256 buyerPk) internal returns (Suite memory s) {
         _start(issuerPk);
         _deployRegistries(s, _addr(issuerPk), _addr(signerPk));
